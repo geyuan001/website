@@ -686,10 +686,16 @@ plugins=(kubectl)
 
 
 ```shell
-if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh)
-fi
 ```
+如果您拥有kubectl的别名，则可以扩展shell补全功能以使用该别名：
+echo 'alias k=kubectl' >>~/.zshrc
+echo 'complete -F __start_kubectl k' >>~/.zshrc
+
+重新加载shell后，kubectl自动补全功能应该可以正常工作了。
+如果您收到诸如complete：13：not found command：compdef之类的错误，请在〜/.zshrc文件的开头添加以下内容：
+autoload -Uz compinit
+compinit
 
 如果您使用的是 [Oh-My-Zsh](http://ohmyz.sh/)，请编辑 ~/.zshrc 文件并更新 `plugins=` 行以包含 kubectl 插件。
 
